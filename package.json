@@ -6,7 +6,10 @@
     "name": "xiongsheng"
   },
   "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
     "express": "4.14.0",
+    "morgan": "~1.8.1",
     "node-fetch": "~1.3.3",
     "superagent": "~1.4.0"
   },
