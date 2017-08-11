@@ -2,7 +2,7 @@
  * @Author: xiongsheng
  * @Date:   2017-08-07 14:37:14
  * @Last Modified by:   xiongsheng
- * @Last Modified time: 2017-08-08 17:58:33
+ * @Last Modified time: 2017-08-11 13:55:04
  */
 
 'use strict';
@@ -10,17 +10,16 @@ import fetch from 'node-fetch';
 import Mock from 'mockjs';
 
 export async function getMockResponse(systemId, projectId, urlName, type) {
-    //这儿配置Starfish的接口地址
-    const address = 'http://10.134.74.145:8161/';
-    const url = `${address}${urlName}`;
-    const res = await getMockData(url, type);
+    //这儿配置Starfish的接口地址,并不是跟远方约的那个，后续得改
+    const params = {systemId, projectId, urlName};
+    const res = await getMockData(params, type);
     return res;
 }
 
 
-async function fetchInterface(url) {
-    const params = { interfaceId: 1005 };
-    const data = await fetch(url, {
+async function fetchInterface(params) {
+    const address = 'http://10.134.74.145:8163/interface/queryResponseParamsById.action';
+    const data = await fetch(address, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -32,8 +31,8 @@ async function fetchInterface(url) {
 }
 
 
-async function getMockData(url, type) {
-    const data = await fetchInterface(url);
+async function getMockData(params, type) {
+    const data = await fetchInterface(params);
     
     if (type == 1) {
         return parseResponse(data.data[0].params, type);
